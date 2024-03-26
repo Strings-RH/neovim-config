@@ -1,16 +1,12 @@
 #!/bin/bash
-sudo apt purge nvim 2>/dev/null
+sudo apt purge -y neovim 2>/dev/null
 cd /usr/local/src
 if [ ! -d neovim ]
 then (
 	##
-	if [ -f /tmp/nvim-install-aptupdate ]
-	then SIZE=$(wc -c </tmp/nvim-install-aptupdate)
-	else SIZE=300
-	fi
-	sudo apt-get update |pv -s $SIZE >/tmp/nvim-install-aptupdate
+	sudo apt-get update
 	##
-	sudo apt-get install -y git ninja-build gettext cmake unzip curl build-essential
+	sudo apt-get install -y pv git ninja-build gettext cmake unzip curl build-essential
 	clear
 	##
 	git clone https://github.com/neovim/neovim.git
@@ -51,9 +47,9 @@ else (
 fi
 
 [ ! -d ~/.config ] && mkdir -p ~/.config
-if [ ! -d nvim ]
+if [ ! -d ~/.config/nvim ]
 then (
-	git clone https://github.com/Strings-RH/neovimm-config.git nvim
+	git clone https://github.com/Strings-RH/neovimm-config.git ~/.config/nvim
 	cd ~/.config/nvim
 	[ ! -f init.lua ] && cat > init.lua <<"EOF"
 vim.g.mapleader = " "
