@@ -61,21 +61,21 @@ vim.g.maplocalleader = " "
 
 vim.opt.wrap = false
 vim.opt.clipboard:append("unnamedplus")
-if vim.nf.has("wsl") == 1 then
-	if vim.fn.executabke("clip.exe") == 1 then
+if vim.fn.has("wsl") == 1 then
+	if vim.fn.executable("clip.exe") == 1 then
 		vim.g.clipboard = {
 			name= 'WslClipboard',
 			copy= {
 				['+']= 'clip.exe',
-			['*']= 'clip.exe',
-		},
-		paste= {
-			['+']= 'powershell.exe -e [Console]::Out.Write($(Get Clipboard -Raw).toString().replace("`r", ""))',
-			['*']= 'powershell.exe -e [Console]::Out.Write($(Get Clipboard -Raw).toString().replace("`r", ""))',
-		},
-		cache_enable= false,
+				['*']= 'clip.exe',
+			},
+			paste= {
+				['+']= 'powershell.exe -e [Console]::Out.Write($(Get Clipboard -Raw).toString().replace("`r", ""))',
+				['*']= 'powershell.exe -e [Console]::Out.Write($(Get Clipboard -Raw).toString().replace("`r", ""))',
+			},
+			cache_enable= false,
 		}
-	endif
+	end
 end
 EOF
 ); fi
