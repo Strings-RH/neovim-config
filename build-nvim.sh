@@ -36,7 +36,10 @@ else (
 	then SIZE=$(wc -c </tmp/nvim-install-srcupdate)
 	else SIZE=1k
 	fi
-	make CMAKE_BUILD_TYPE=Release |pv -s $SIZE >/tmp/nvim-install-srupdate
+	export CC=/usr/bin/clang
+	export CXX=/usr/bin/clang++
+	make CMAKE_BUILD_TYPE=Release
+# |pv -s $SIZE >/tmp/nvim-install-srupdate
 	##
 	if [ -f /tmp/nvim-install-osinstall ]
 	then SIZE=$(wc -c </tmp/nvim-install-osinstall)
@@ -45,6 +48,7 @@ else (
 	sudo make install |pv -s $SIZE >/tmp/nvim-install-osinstall
 )
 fi
+####### update-alternatives
 
 [ ! -d ~/.config ] && mkdir -p ~/.config
 if [ ! -d ~/.config/nvim ]
